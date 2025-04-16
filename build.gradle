@@ -1,6 +1,8 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.9-SNAPSHOT" apply false
+    id "com.hypherionmc.modutils.modpublisher" version "2.1.6" apply false
+    id "co.uzzu.dotenv.gradle" version "4.0.0"
 }
 
 architectury {
@@ -9,7 +11,7 @@ architectury {
 
 subprojects {
     apply plugin: "dev.architectury.loom"
-
+    apply plugin: "com.hypherionmc.modutils.modpublisher"
     loom {
         silentMojangMappingsLicense()
     }
@@ -17,6 +19,25 @@ subprojects {
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         mappings loom.officialMojangMappings()
+    }
+
+    publisher {
+        apiKeys {
+            curseforge env.CURSE_TOKEN.value
+            modrinth env.MODRINTH_TOKEN.value
+        }
+
+        setCurseID rootProject.curseforge_id
+        setModrinthID rootProject.modrinth_id
+        setVersionType "release"
+        setDisplayName "[$rootProject.minecraft_version - ${project.name.capitalize()}] Simple Banana - $rootProject.mod_version"
+        setGameVersions rootProject.minecraft_version
+        setLoaders([project.name])
+        setCurseEnvironment "both"
+        setVersion rootProject.mod_version
+        setArtifact remapJar
+        setJavaVersions([java.targetCompatibility])
+        setChangelog rootProject.changelog
     }
 }
 

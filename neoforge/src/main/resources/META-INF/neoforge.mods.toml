@@ -16,14 +16,14 @@ logoFile = "logo.png"
 [[dependencies.yeatthesheep]]
 modId = "neoforge"
 type="required"
-versionRange = "[21.0.0-beta,)"
+versionRange = "[21.1.145,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.yeatthesheep]]
 modId = "minecraft"
 type="required"
-versionRange = "[1.21,)"
+versionRange = "[1.21.1,)"
 ordering = "NONE"
 side = "BOTH"
 
